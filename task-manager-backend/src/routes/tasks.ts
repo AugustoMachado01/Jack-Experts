@@ -72,6 +72,11 @@ router.put(
     }
 
     const { title, description, completed } = req.body;
+
+    if (!title) {
+      return res.status(400).json({ error: "Title and userId are required" });
+    }
+
     const task = await prisma.task.findUnique({
       where: { id: parseInt(req.params.id) },
     });

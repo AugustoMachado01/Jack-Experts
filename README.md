@@ -25,14 +25,19 @@ $ cd nome-do-repositorio
 # Instale as dependências do backend
 $ cd backend
 $ npm install
+$ npm test
 # ou
 $ yarn install
+$ yarn test
 
 # Instale as dependências do frontend
 $ cd ../frontend
 $ npm install
+$ npm test
+
 # ou
 $ yarn install
+$ yarn test
 
 ```
 
