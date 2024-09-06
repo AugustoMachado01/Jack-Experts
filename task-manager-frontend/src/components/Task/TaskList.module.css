@@ -1,25 +1,16 @@
- .task-list {
-  padding: 20px;
-  background: #f4f4f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  max-width: 800px;
-  margin: auto;
-}
-
-.task-list h2 {
+.taskList h2 {
   margin-bottom: 20px;
   font-size: 24px;
   color: #333;
 }
 
-.task-list ul {
+.taskList ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.task-list li {
+.taskItem {
   background: #fff;
   border-radius: 8px;
   padding: 15px;
@@ -28,73 +19,116 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
 }
 
-.task-list li h3 {
+.taskItem:hover {
+  transform: translateY(-3px);
+}
+
+.taskItem h3 {
   margin: 0;
   font-size: 18px;
   color: #333;
 }
 
-.task-list li p {
+.taskItem p {
   margin: 5px 0;
   color: #555;
 }
 
-.task-list button {
-  background: #007bff;
+.taskActions {
+  display: flex;
+  gap: 10px;
+}
+
+.button {
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s;
+}
+
+.deleteButton {
+  background-color: #dc3545;
+  color: white;
+}
+
+.deleteButton:hover {
+  background-color: #c82333;
+}
+
+.editButton {
+  background-color: #28a745;
+  color: white;
+}
+
+.editButton:hover {
+  background-color: #218838;
+}
+
+.logoutButton {
+  background: #ffc107;
   border: none;
   color: white;
   padding: 8px 12px;
   border-radius: 4px;
   cursor: pointer;
-  margin-left: 5px;
+  margin-top: 20px;
   font-size: 14px;
   transition: background 0.3s;
 }
 
-.task-list button:hover {
-  background: #0056b3;
+.logoutButton:hover {
+  background: #e0a800;
 }
-
-.task-list .edit-button {
-  background: #28a745;
+.NotTask{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10rem;
 }
-
-.task-list .edit-button:hover {
-  background: #218838;
-}
-
-.task-list .delete-button {
-  background: #dc3545;
-}
-
-.task-list .delete-button:hover {
-  background: #c82333;
+.NotTask p{
+  font-size: 2rem;
 }
 
 /* Responsividade */
 @media (max-width: 768px) {
+  .taskItem {
+    flex-direction: column;
+  }
+
+  .taskActions button {
+    width: 100%;
+    margin: 5px 0;
+  }
+}
+@media (max-width: 480px) {
+  .task-form,
+  .task-list {
+    padding: 10px;
+  }
+
   .task-list li {
     flex-direction: column;
+    padding: 10px;
   }
 
   .task-list button {
     width: 100%;
     margin: 5px 0;
+    font-size: 12px;
   }
-}
 
-@media (max-width: 480px) {
+  .task-form input,
+  .task-form textarea {
+    font-size: 14px;
+  }
+  
   .task-list h2 {
     font-size: 20px;
-  }
-
-  .task-list li {
-    padding: 10px;
-  }
-
-  .task-list button {
-    font-size: 12px;
   }
 }

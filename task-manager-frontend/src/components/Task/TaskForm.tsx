@@ -1,38 +1,71 @@
-import React, { useState, useEffect } from "react";
-import styles from "./TaskForm.module.css";
-import { Task, TaskFormProps } from "../../interface/Task";
+import React, { useState } from "react";
+import axios from "axios";
+import { Task } from "../../interface/Task";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import './TaskForm.css'
 
-const TaskForm: React.FC<TaskFormProps> = ({ onAddTask, taskToEdit }) => {
+interface TaskFormProps {
+  onSaveTask: (task: Task) => void;
+  taskToEdit?: Task;
+}
+
+const TaskForm: React.FC<TaskFormProps> = ({ onSaveTask, taskToEdit }) => {
   const [title, setTitle] = useState(taskToEdit?.title || "");
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState(taskToEdit?.description || "");
+  const [errors, setErrors] = useState({ title: "", description: "" });
 
-  useEffect(() => {
-    if (taskToEdit) {
-      setTitle(taskToEdit.title);
-      setDescription(taskToEdit.description);
+  const validateForm = () => {
+    let isValid = true;
+    const newErrors = { title: "", description: "" };
+
+    if (title.trim() === "") {
+      newErrors.title = "O título é obrigatório";
+      isValid = false;
     }
-  }, [taskToEdit]);
+    if (description.trim() === "") {
+      newErrors.description = "A descrição é obrigatória";
+      isValid = false;
+    }
+    setErrors(newErrors);
+    return isValid;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!validateForm()) return;
 
-    const updatedTask: Task = {
+    const token = localStorage.getItem("token");
+    const newTask: Task = {
       id: taskToEdit ? taskToEdit.id : Date.now(),
       title,
       description,
     };
 
-    // Chame a função `onAddTask`, que será responsável por adicionar ou atualizar a tarefa
-    onAddTask(updatedTask);
-
-    // Limpar os campos após o envio do formulário
-    setTitle("");
-    setDescription("");
+    try {
+      if (taskToEdit) {
+        const response = await axios.put(`http://localhost:3000/tasks/${taskToEdit.id}`, newTask, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        onSaveTask(response.data);
+        toast.success("Tarefa atualizada com sucesso!");
+      } else {
+        const response = await axios.post("http://localhost:3000/tasks", newTask, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        onSaveTask(response.data);
+        toast.success("Tarefa adicionada com sucesso!");
+      }
+      setTitle("");
+      setDescription("");
+    } catch (error) {
+      console.error("Erro ao salvar tarefa", error);
+      toast.error("Erro ao salvar a tarefa!");
+    }
   };
 
   return (
-    <form className={styles["task-form"]} onSubmit={handleSubmit}>
-      <h2>{taskToEdit ? "Editar Tarefa" : "Nova Tarefa"}</h2>
+    <form className="taskForm" onSubmit={handleSubmit}>
       <label>
         Título:
         <input
@@ -41,6 +74,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ onAddTask, taskToEdit }) => {
           onChange={(e) => setTitle(e.target.value)}
           required
         />
+        {errors.title && <p className="error-message">{errors.title}</p>}
       </label>
       <label>
         Descrição:
@@ -50,6 +84,7 @@ const TaskForm: React.FC<TaskFormProps> = ({ onAddTask, taskToEdit }) => {
           onChange={(e) => setDescription(e.target.value)}
           required
         />
+        {errors.description && <p className="error-message">{errors.description}</p>}
       </label>
       <button type="submit">{taskToEdit ? "Atualizar" : "Adicionar"}</button>
     </form>

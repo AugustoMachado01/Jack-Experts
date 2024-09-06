@@ -16,19 +16,16 @@ router.post("/register", async (req: Request, res: Response) => {
     return res.status(400).json({ error: "Email e senha são obrigatórios" });
   }
 
-  // Verifica se o usuário já existe
   const existingUser = await prisma.user.findUnique({
     where: { email },
   });
 
   if (existingUser) {
-    return res.status(400).json({ error: "Usuário já existe" });
+    return res.status(400).json({ error: "Email de usuário já Existente tenta outro email" });
   }
 
-  // Hash da senha
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  // Cria o novo usuário
   const newUser = await prisma.user.create({
     data: {
       email,
@@ -36,13 +33,11 @@ router.post("/register", async (req: Request, res: Response) => {
     },
   });
 
-  // Gera um token JWT
   const token = jwt.sign({ id: newUser.id }, JWT_SECRET, { expiresIn: "1h" });
 
   res.status(201).json({ token });
 });
 
-// Endpoint para login de usuário
 router.post("/login", async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
@@ -50,7 +45,6 @@ router.post("/login", async (req: Request, res: Response) => {
     return res.status(400).json({ error: "Email e senha são obrigatórios" });
   }
 
-  // Verifica se o usuário existe
   const user = await prisma.user.findUnique({
     where: { email },
   });

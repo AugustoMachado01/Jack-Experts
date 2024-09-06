@@ -1,0 +1,65 @@
+.taskForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 86%;
+  padding: 25px;
+  border-radius: 12px;
+}
+ 
+.taskForm h2 {
+  margin-bottom: 20px;
+  font-size: 26px;
+  color: #333;
+  text-align: center;
+}
+
+.taskForm label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #444;
+}
+
+.taskForm input {
+  border: 1px solid #ccc;
+  padding: 12px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  width: 100%;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.taskForm input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.taskForm button {
+  width: 40%;
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-transform: uppercase;
+}
+
+.taskForm button:hover {
+  background-color: #0056b3;
+}
+
+.taskForm button:focus {
+  outline: none;
+}
+
+.taskForm .error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: -15px;
+  margin-bottom: 20px;
+}

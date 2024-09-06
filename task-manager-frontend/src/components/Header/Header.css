@@ -1,0 +1,22 @@
+.header {
+    width: 96%;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .profile-button {
+    background-color: #5b5be3; 
+    color: #fff; 
+    border: none; 
+    padding: 10px 15px; 
+    border-radius: 4px; 
+    cursor: pointer;  
+    transition: background-color 0.3s ease; 
+  }
+  
+  .profile-button:hover {
+    background-color: #7f7fd8;
+  }
+  

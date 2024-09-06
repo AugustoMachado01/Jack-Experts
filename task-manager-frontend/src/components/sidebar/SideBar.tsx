@@ -1,16 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import "./Sidebar.css";
 
 const Sidebar: React.FC = () => {
+  const [img, setImg] = useState(false);
+
   const handleLogout = () => {
     localStorage.removeItem("token");
-    window.location.href = "/login"; // Redireciona para a página de login
+    window.location.href = "/";
   };
 
   return (
     <div className="sidebar">
       <div className="profile-section">
-        <img src="profile-picture-url" alt="Profile" />
+        <div className="img">
+          {img ? (
+            <img src="profile-picture-url" alt="Profile" />
+          ) : (
+            'AM'
+          )}
+        </div>
         <h3>Augusto Machado</h3>
       </div>
       <nav>
@@ -50,7 +59,7 @@ const Sidebar: React.FC = () => {
         </ul>
       </nav>
       <button onClick={handleLogout} className="logout-button">
-        Sign Out
+        Sair da Plataforma
       </button>
     </div>
   );
