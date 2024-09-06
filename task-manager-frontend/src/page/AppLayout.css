@@ -1,0 +1,37 @@
+.main-content {
+    display: flex;
+    height: 100vh; /* Ajusta a altura para preencher a tela */
+  }
+  
+  .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;  
+  }
+
+  .header {
+    width: 100%; /* Ajusta a largura para preencher o conteúdo */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    color: #34495e;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    padding: 0 20px; /* Adiciona espaçamento horizontal */
+  }
+  
+  .logout-button {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .logout-button:hover {
+    background-color: #c0392b;
+  }
+  

@@ -18,10 +18,8 @@ app.use(
 
 app.use(express.json());
 
-// Rotas de autenticação
 app.use("/auth", authRoutes);
 
-// Rotas de tarefas (precisa de autenticação)
 app.use("/tasks", authenticateToken, taskRoutes);
 
 app.listen(PORT, () => {

@@ -43,4 +43,4 @@ $ yarn test
 
 ## Autor
 
-Feito por Augusto Machado 👋🏽 Entre em contato!
+Feito por Felix Domingos e Augusto Machado 👋🏽 Entre em contato!

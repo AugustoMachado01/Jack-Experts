@@ -3,17 +3,12 @@ import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./components/Auth/login";
 import Register from "./components/Auth/register";
-import TaskList from "./components/Task/TaskList";
-import TaskForm from "./components/Task/TaskForm";
 import useTasks from "./hooks/useTasks";
-import { Task } from "./interface/Task";
+import TaskContainer from "./components/TaskContainer/TaskContainer";
+import AppLayout from "./page/AppLayout";
 
 const App: React.FC = () => {
   const { tasks, setTasks } = useTasks();
-
-  const handleAddTask = (task: Task) => {
-    setTasks((prevTasks) => [...prevTasks, task]);
-  };
 
   return (
     <Router>
@@ -23,10 +18,9 @@ const App: React.FC = () => {
         <Route
           path="/tasks"
           element={
-            <div>
-              <TaskList tasks={tasks} setTasks={setTasks} />
-              <TaskForm onAddTask={handleAddTask} />
-            </div>
+            <AppLayout>
+              <TaskContainer tasks={tasks} setTasks={setTasks} />
+            </AppLayout>
           }
         />
       </Routes>
